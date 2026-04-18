@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Style-Bert-VITS2 学習ガイド</title>
+    <title>Style-Bert-VITS2 学習＆PTL変換ガイド</title>
     <style>
         :root {
             --primary-color: #4285f4;
+            --success-color: #34a853;
             --bg-color: #f8f9fa;
             --text-color: #333;
         }
@@ -50,74 +51,73 @@
             border-radius: 5px;
             margin-bottom: 20px;
         }
+        .step-success {
+            background: #e6f4ea;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
         .step-number {
             font-weight: bold;
             color: var(--primary-color);
             margin-right: 10px;
         }
-        code {
+        .highlight {
+            color: #d93025;
+            font-weight: bold;
+        }
+        .file-path {
             background: #eee;
             padding: 2px 5px;
             border-radius: 3px;
             font-family: Consolas, Monaco, monospace;
-        }
-        .warning {
-            background: #fff3cd;
-            border: 1px solid #ffeeba;
-            padding: 15px;
-            border-radius: 5px;
-            margin: 20px 0;
-        }
-        .highlight {
-            color: #d93025;
-            font-weight: bold;
+            font-size: 0.9em;
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>Style-Bert-VITS2 学習入門</h1>
-    <p>Google Colabを使って、AI合成音声を作ってみましょう。このガイドでは、初心者の方が迷わないための基本的な流れを説明します。</p>
+    <h1>Style-Bert-VITS2 学習＆PTL変換ガイド</h1>
+    <p>Google ColabでAI音声を作成し、Androidアプリ等で利用可能なPTL形式（PyTorch Mobile）へ変換するまでの流れを解説します。</p>
 
     <img src="colab_top.png" alt="Google Colabの画面" class="hero-img">
-    <p style="font-size: 0.9em; color: #666; text-align: center;">※画像：Style-Bert-VITS2 Google Colab ノートブック画面</p>
 
-    <h2>学習の進め方</h2>
-    
+    <h2>1. 準備：コピーと環境構築</h2>
     <div class="step">
         <span class="step-number">STEP 0</span>
-        <strong>自分のドライブへの保存（重要！）</strong>
-        <p>まず、ノートブックを編集・保存できるようにします。画面左上のメニューから<br>
-        <span class="highlight">「ファイル」→「ドライブにコピーを保存」</span>をクリックしてください。<br>
-        新しく開いたタブ（コピー版）で、以降の作業を進めていきます。</p>
+        <strong>自分のドライブへコピー</strong>
+        <p>画面左上のメニューから<span class="highlight">「ファイル」→「ドライブにコピーを保存」</span>をクリック。コピーされたタブで作業を進めます。※これをしないと設定が保存されません！</p>
     </div>
-
     <div class="step">
         <span class="step-number">STEP 1</span>
-        <strong>環境構築とデータの準備</strong>
-        <p>「環境構築」のセルを実行してGoogle ドライブと連携させます。次に、ドライブ内の <code>inputs</code> フォルダに学習させたい音声ファイルをアップロードしてください。</p>
+        <strong>初期セットアップ</strong>
+        <p>「0. 環境構築」と「1. 初期設定」を実行し、Google ドライブをマウント（連携）させます。</p>
     </div>
 
+    <h2>2. 学習：音声モデルの作成</h2>
     <div class="step">
         <span class="step-number">STEP 2</span>
-        <strong>前処理（スライス・書き起こし）</strong>
-        <p>AIが学習しやすいように音声を整理します。モデル名（名前）を決めて実行します。日本語特化（JP-Extra）にする場合は、設定を確認しましょう。</p>
+        <strong>音声データの準備</strong>
+        <p>ドライブの <code>Style-Bert-VITS2/inputs/</code> に音声を入れたら、前処理を実行して学習の準備を整えます。</p>
     </div>
-
     <div class="step">
         <span class="step-number">STEP 3</span>
-        <strong>学習（トレーニング）開始</strong>
-        <p>学習セルを実行します。時間がかかるため、パソコンがスリープにならないよう注意してください。完了するとモデルファイルが作成されます。</p>
+        <strong>トレーニング開始</strong>
+        <p>学習セルを実行します。完了すると、高精度な音声合成のための <span class="file-path">.safetensors</span> ファイルが出力されます。</p>
     </div>
 
-    <div class="warning">
-        <strong>⚠️ 注意点</strong><br>
-        「ドライブにコピーを保存」を行わないと、設定や学習の進行状況が保存されません。必ず最初に行いましょう。
+    <h2>3. 変換：モバイル向けエクスポート</h2>
+    <div class="step-success">
+        <span class="step-number">STEP 4</span>
+        <strong>PTL形式への変換</strong>
+        <p>学習したモデルをAndroidアプリ等で軽量に動かすため、<span class="highlight">PTL形式</span>に変換します。<br>
+        ノートブックの変換スクリプトを使用して、モバイル向けに最適化されたファイルを書き出しましょう。これでアプリへの組み込みが可能になります！</p>
     </div>
 
-    <h2>完成したら</h2>
-    <p>出来上がった <code>.safetensors</code> ファイルをPCにダウンロードし、ローカル版で読み込めば準備完了です！</p>
+    <p style="margin-top: 30px; font-size: 0.9em; color: #666;">
+        ※書き出されたファイルは <code>model_assets</code> フォルダ等から確認し、大切に保存してください。
+    </p>
 </div>
 
 </body>
