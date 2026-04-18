@@ -68,50 +68,56 @@
             border-radius: 5px;
             margin: 20px 0;
         }
+        .highlight {
+            color: #d93025;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
     <h1>Style-Bert-VITS2 学習入門</h1>
-    <p>Google Colabを使って、自分の好きな声でAI合成音声を作ってみましょう。このガイドでは、初心者の方が迷わないための基本的な流れを説明します。</p>
+    <p>Google Colabを使って、AI合成音声を作ってみましょう。このガイドでは、初心者の方が迷わないための基本的な流れを説明します。</p>
 
     <img src="colab_top.png" alt="Google Colabの画面" class="hero-img">
     <p style="font-size: 0.9em; color: #666; text-align: center;">※画像：Style-Bert-VITS2 Google Colab ノートブック画面</p>
 
-    <h2>全体の流れ</h2>
+    <h2>学習の進め方</h2>
     
     <div class="step">
         <span class="step-number">STEP 0</span>
-        <strong>環境構築とGoogleドライブ連携</strong>
-        <p>最初のセルを実行して、必要なツールをインストールします。途中で「Google ドライブへのアクセス」を求められるので、許可して連携させましょう。学習データは全てドライブの <code>Style-Bert-VITS2</code> フォルダに保存されます。</p>
+        <strong>自分のドライブへの保存（重要！）</strong>
+        <p>まず、ノートブックを編集・保存できるようにします。画面左上のメニューから<br>
+        <span class="highlight">「ファイル」→「ドライブにコピーを保存」</span>をクリックしてください。<br>
+        新しく開いたタブ（コピー版）で、以降の作業を進めていきます。</p>
     </div>
 
     <div class="step">
         <span class="step-number">STEP 1</span>
-        <strong>音声データの準備</strong>
-        <p>Googleドライブの <code>inputs</code> フォルダに、学習させたい音声（WAVやMP3）をアップロードします。数分〜数十分程度の音声があれば学習可能です。</p>
+        <strong>環境構築とデータの準備</strong>
+        <p>「環境構築」のセルを実行してGoogle ドライブと連携させます。次に、ドライブ内の <code>inputs</code> フォルダに学習させたい音声ファイルをアップロードしてください。</p>
     </div>
 
     <div class="step">
         <span class="step-number">STEP 2</span>
         <strong>前処理（スライス・書き起こし）</strong>
-        <p>AIが学習しやすいように音声を細かく切り、文字に起こします。モデル名（話者名）を決めて実行するだけです。日本語特化（JP-Extra）にするかどうかもここで選択します。</p>
+        <p>AIが学習しやすいように音声を整理します。モデル名（名前）を決めて実行します。日本語特化（JP-Extra）にする場合は、設定を確認しましょう。</p>
     </div>
 
     <div class="step">
         <span class="step-number">STEP 3</span>
         <strong>学習（トレーニング）開始</strong>
-        <p>いよいよ学習です！GPUを使って音声を学習します。数時間かかる場合もあるので、ブラウザを閉じないように注意しましょう（Colabの切断に注意）。</p>
+        <p>学習セルを実行します。時間がかかるため、パソコンがスリープにならないよう注意してください。完了するとモデルファイルが作成されます。</p>
     </div>
 
     <div class="warning">
-        <strong>⚠️ 初心者の方へのアドバイス</strong><br>
-        「セッションがクラッシュしました」という警告が出ることがありますが、初期設定の仕様なので、そのまま無視して進めて大丈夫です。
+        <strong>⚠️ 注意点</strong><br>
+        「ドライブにコピーを保存」を行わないと、設定や学習の進行状況が保存されません。必ず最初に行いましょう。
     </div>
 
-    <h2>学習が終わったら</h2>
-    <p>学習結果は <code>model_assets</code> フォルダの中に <code>.safetensors</code> という形式で保存されます。これをPCにダウンロードして、ローカル版のStyle-Bert-VITS2で読み込めば、あなただけの声が完成します！</p>
+    <h2>完成したら</h2>
+    <p>出来上がった <code>.safetensors</code> ファイルをPCにダウンロードし、ローカル版で読み込めば準備完了です！</p>
 </div>
 
 </body>
